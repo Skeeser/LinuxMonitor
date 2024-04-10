@@ -1,0 +1,17 @@
+syntax = "proto3";
+package monitor.proto;
+
+// cpu软中断
+message SoftIrq{
+    string cpu = 1; // 标识cpu
+    float hi = 2;  // 高优先级信息
+    float timer = 3;  // 定时器信息
+    float net_tx = 4;  // 网络传输发送数据相关信息
+    float net_rx = 5;  // 网络传输接受数据相关信息
+    float block = 6;  // 阻塞相关信息
+    float irq_poll = 7;  // 中断轮训信息
+    float tasklet = 8;  // 任务信息
+    float sched = 9;  // 调度信息
+    float hrtimer = 10;  // 高精度定时器信息
+    float rcu = 11;  //  RCU（Read-Copy Update）信息
+}
