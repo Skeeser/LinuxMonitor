@@ -2,13 +2,13 @@
 ## docker部分
 ### 镜像创建 
 ```shell
-docker build -t linux_monitor .
+./docker_build.sh
 ```
 
 ### 运行镜像脚本
 ```shell
-./mo...run.sh
-./ml...into.sh
+./docker_run.sh
+./docker_into.sh
 ```
 
 ## 镜像内

@@ -58,13 +58,48 @@ C++、Docker、gRPC、protobuf、Cmake、qt5、工厂方法
 <br>
 
 ## 构建
+### 先构建docker容器
+#### 镜像创建 
+```shell
+./docker_build.sh
+```
 
-<!-- 描述如何构建该项目 -->
+#### 运行镜像脚本
+```shell
+./docker_run.sh
+./docker_into.sh
+```
+
+### 然后编译
+```shell
+cd work/build/
+cmake ..
+make -j8
+```
+
 <br>
 
 ## 运行
 
-<!-- 描述如何运行该项目 -->
+### 启动grpc服务
+```shell
+cd rpc_manager/server/
+./server
+
+```
+
+### 启动监控
+```shell
+cd work/cmake/test_monitor/.monitor
+```
+
+### 展示数据
+另开一个终端  
+```shell
+cd work/cmake/display/
+./display
+```
+
 <br>
 
 ## 使用指南
