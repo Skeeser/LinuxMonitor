@@ -1,6 +1,6 @@
 <div align="center">
 
-<img alt="LOGO" src="assets/closure.jpg" width="256" height="256" />
+<img alt="LOGO" src="assets/logo.png" height="256" />
 
 # LinuxMonitor
 
@@ -36,12 +36,12 @@
 <br>
 
 ## 文件结构
-./
-├── assets  => 资源文件
-├── doc  => 存放开发相关文档
-├── docker  => docker镜像相关
-├── LICENSE
-└── README.md
+./  
+├── assets  => 资源文件  
+├── doc  => 存放开发相关文档  
+├── docker  => docker镜像相关  
+├── LICENSE  
+└── README.md  
 
 <br>
 
