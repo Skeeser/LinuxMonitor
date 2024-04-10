@@ -47,3 +47,20 @@ RUN apt-get install -y python-dev \
     python-all-dev 
 
 # 复制运行依赖安装脚本
+COPY install/protobuf /tmp/install/protobuf
+RUN /tmp/install/protobuf/install_protobuf.sh
+
+COPY install/abseil /tmp/install/abseil
+RUN /tmp/install/abseil/install_abseil.sh
+
+COPY install/grpc /tmp/install/grpc
+RUN /tmp/install/grpc/install_grpc.sh
+
+COPY install/cmake /tmp/install/cmake
+RUN /tmp/install/cmake/install_cmake.sh
+
+RUN apt-get install -y python3-pip
+RUN pip3 install cuteci -i https://mirrors.aliyun.com/pypi/simple
+
+COPY install/qt /tmp/install/qt
+RUN /tmp/install/qt/install_qt.sh
