@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Shanghai
 
 # 设置默认的shell位置
-SHELL ["./bin/shell", "-c"]
+SHELL ["/bin/bash", "-c"]
 
 # 配置apt, 删除软件包和配置软件源
 RUN apt-get clean && \
