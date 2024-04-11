@@ -1,0 +1,15 @@
+syntax = "proto3";
+package monitor.proto;
+
+// cpu 状态
+message CpuStat{
+    string cpu_name = 1;  // cpu名称
+    float cpu_percent = 2;  // 总cpu利用率
+    float usr_percent = 3;  // 用户态cpu利用率
+    float system_percent = 4;  // 系统态cpu利用率
+    float nice_percent = 5;  // 优先级别为nice的进程CPU利用率
+    float idle_percent = 6;  // 空闲CPU利用率
+    float io_wait_percent = 7;  // 等待I/O的CPU利用率
+    float irq_percent = 8;  // 硬中断CPU利用率
+    float soft_irq_percent = 9;  // 软中断CPU利用率
+}
