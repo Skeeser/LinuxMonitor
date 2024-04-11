@@ -1,0 +1,26 @@
+syntax = "proto3";
+package monitor.proto;
+
+// 内存信息
+message MemInfo {
+    float total = 1; // 总内存量
+    float free = 2; // 空闲内存量
+    float avail = 3; // 可用内存量
+    float buffers = 4; // 缓冲区使用量
+    float cached = 5; // 缓存使用量
+    float swap_cached = 6; // 交换缓存使用量
+    float active = 7; // 活跃内存量
+    float inactive = 8; // 不活跃内存量
+    float active_anon = 9; // 活跃匿名内存量
+    float inactive_anon = 10; // 不活跃匿名内存量
+    float active_file = 11; // 活跃文件内存量
+    float inactive_file = 12; // 不活跃文件内存量
+    float dirty = 13; // 脏内存量
+    float writeback = 14; // 回写内存量
+    float anon_pages = 15; // 匿名页面内存量
+    float mapped = 16; // 映射内存量
+    float kReclaimable = 17; // 可回收的内存量
+    float sReclaimable = 18; // 可回收的slab内存量
+    float sUnreclaim = 19; // 不可回收的slab内存量
+    float used_percent = 31; // 内存使用百分比
+}

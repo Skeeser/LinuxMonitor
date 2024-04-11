@@ -1,0 +1,10 @@
+syntax = "proto3";
+package monitor.proto;
+
+message NetInfo {
+    string name = 1; // 网络接口名称
+    float send_rate = 2; // 发送速率（单位：字节/秒）
+    float rcv_rate = 3; // 接收速率（单位：字节/秒）
+    float send_packets_rate = 4; // 发送数据包速率（单位：数据包/秒）
+    float rcv_packets_rate = 5; // 接收数据包速率（单位：数据包/秒）
+}
