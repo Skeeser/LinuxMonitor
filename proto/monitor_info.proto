@@ -1,0 +1,33 @@
+syntax = "proto3";
+package monitor.proto;
+
+import "google/protobuf/empty.proto";
+import "net_info.proto";
+import "mem_info.proto";
+import "cpu_stat.proto";
+import "cpu_softirq.proto";
+import "cpu_load.proto";
+
+// 总的protobuf
+
+// monitor的信息
+message MonitorInfo{
+  string name = 1;  // monitor名称 
+  repeated SoftIrq soft_irq = 4;
+  CpuLoad cpu_load = 5;
+  repeated CpuStat cpu_stat = 6;
+  MemInfo mem_info = 7;
+  repeated NetInfo net_info = 8;
+}
+
+
+// 在protobuf里面怎么定义描述rpc方法的类型 - service
+service GrpcManager{
+    rpc SetMonitorInfo(MonitorInfo) returns (google.protobuf.Empty){
+
+    }
+
+    rpc GetMonitorInfo(google.protobuf.Empty) returns (MonitorInfo) {
+        
+    }
+}
