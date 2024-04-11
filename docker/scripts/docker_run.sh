@@ -17,12 +17,12 @@ gid="$(id -g)"
 
 
 echo "stop and rm docker" 
-docker stop linux_monitor > /dev/null
-docker rm -v -f linux_monitor > /dev/null
+docker stop monitor_container > /dev/null
+docker rm -v -f monitor_container > /dev/null
 
 echo "start docker"
 docker run -it -d \
---name linux_monitor \
+--name monitor_container \
 -e DISPLAY=$display \
 -e DOCKER_USER="${user}" \
 -e USER="${user}" \
@@ -33,4 +33,4 @@ docker run -it -d \
 -v ${MONITOR_HOME_DIR}:/work \
 -v ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR} \
 --net host \
-linux:monitor
+linux_monitor
