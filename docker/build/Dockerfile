@@ -43,8 +43,7 @@ RUN apt-get install -y  \
 
 RUN apt-get install -y python-dev \
     python3-dev \
-    python-pip \
-    python-all-dev 
+    python3-pip
 
 # 复制运行依赖安装脚本
 COPY install/protobuf /tmp/install/protobuf
