@@ -14,9 +14,9 @@ namespace monitor
                                                    const ::monitor::proto::MonitorInfo *request,
                                                    ::google::protobuf::Empty *response)
     {
-        monitor_infos_.Clear();
+        monitorInfos_.Clear();
         // 赋值
-        monitor_infos_ = *request;
+        monitorInfos_ = *request;
         // 通过日志写入
         // std::cout << "into" << request->soft_irq_size() << std::endl;
         LOG_INFO("Soft_irq_size: %d", request->soft_irq_size());
@@ -27,7 +27,7 @@ namespace monitor
                                                    const ::google::protobuf::Empty *request,
                                                    ::monitor::proto::MonitorInfo *response)
     {
-        *response = monitor_infos_;
+        *response = monitorInfos_;
         return ::grpc::Status::OK;
     }
 

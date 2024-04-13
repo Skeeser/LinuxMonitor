@@ -15,7 +15,7 @@ add_executable(monitor ${SOURCES})
 #   ../include/..
 # )
 target_include_directories(monitor PUBLIC
-  ${PROJECT_SOURCE_DIR}/test_monitor/include
+  ${PROJECT_SOURCE_DIR}/monitor_work/include
   ${PROJECT_SOURCE_DIR}/rpc_manager
 )
 
