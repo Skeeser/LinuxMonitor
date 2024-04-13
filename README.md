@@ -28,10 +28,11 @@
 <br>
 
 ## 功能特性
-1、构建Docker模块：构建一个容器，包含CMake、gRPC、Protocol Buffers等多个依赖，以便在多台服务器上部署环境。  
-2、构建Monitor模块：实现灵活的监控接口，能够有效地捕获CPU状态、系统负载、软中断、内存、网络等性能指标，同时还需要模拟真实性能问题。  
+1、Docker模块：用dockerfile指定CMake、gRPC、Protocol Buffers等多个依赖，在容器中构建整个项目环境，以便在多台服务器上部署环境。  
+2、Monitor模块：实现灵活的监控接口，能够有效地捕获CPU状态、系统负载、软中断、内存、网络等性能指标；为了模拟真实的性能问题，使用stress工具进行模拟压测，分析相应时刻服务器的cpu状况和终端状况。  
 3、调用gRPC框架：构建Server和Client，实现模块之间的远程连接，同时降低模块间的耦合性。  
 4、Protocol Buffers序列化：构建整个项目的数据结构，并确保高效的数据交换。 
+5、实现异步的日志系统，可以记录程序运行的状态。
 
 <br>
 
@@ -53,7 +54,7 @@ Linux
 
 
 ## 应用技术
-C++、Docker、gRPC、protobuf、Cmake、qt5、工厂方法
+C++、Docker、gRPC、protobuf、Cmake、qt5
 
 <br>
 
