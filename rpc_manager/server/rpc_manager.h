@@ -26,6 +26,6 @@ namespace monitor
 
     private:
         monitor::proto::MonitorInfo monitor_infos_;
-    }
+    };
 
 }

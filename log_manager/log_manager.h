@@ -63,14 +63,14 @@ private:
 };
 
 // 添加宏定义
-#define LOG_BASE(level, format, ...)                 \
-    do                                               \
-    {                                                \
-        Log *log = Log::Instance();                  \
-        if (log->IsOpen() && log->GetLevel <= level) \
-        {                                            \
-            log->write(level, format, ##__VA_ARGS__) \
-        }                                            \
+#define LOG_BASE(level, format, ...)                   \
+    do                                                 \
+    {                                                  \
+        Log *log = Log::Instance();                    \
+        if (log->IsOpen() && log->GetLevel() <= level) \
+        {                                              \
+            log->write(level, format, ##__VA_ARGS__);  \
+        }                                              \
     } while (0);
 
 #define LOG_DEBUG(format, ...)             \

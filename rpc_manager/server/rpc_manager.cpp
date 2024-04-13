@@ -5,14 +5,14 @@ namespace monitor
     GrpcManagerImpl::GrpcManagerImpl()
     {
         // 初始化日志
-        Log::init(1, "../log/server", ".log", 1024);
+        Log::Instance()->init(1, "../log/server", ".log", 1024);
     }
 
     GrpcManagerImpl::~GrpcManagerImpl() {}
 
-    ::grpc::Status SetMonitorInfo(::grpc::ServerContext *context,
-                                  const ::monitor::proto::MonitorInfo *request,
-                                  ::google::protobuf::Empty *response)
+    ::grpc::Status GrpcManagerImpl::SetMonitorInfo(::grpc::ServerContext *context,
+                                                   const ::monitor::proto::MonitorInfo *request,
+                                                   ::google::protobuf::Empty *response)
     {
         monitor_infos_.Clear();
         // 赋值
@@ -23,9 +23,9 @@ namespace monitor
         return ::grpc::Status::OK;
     }
 
-    ::grpc::Status GetMonitorInfo(::grpc::ServerContext *context,
-                                  const ::google::protobuf::Empty *request,
-                                  ::monitor::proto::MonitorInfo *response)
+    ::grpc::Status GrpcManagerImpl::GetMonitorInfo(::grpc::ServerContext *context,
+                                                   const ::google::protobuf::Empty *request,
+                                                   ::monitor::proto::MonitorInfo *response)
     {
         *response = monitor_infos_;
         return ::grpc::Status::OK;
