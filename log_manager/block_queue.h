@@ -200,6 +200,7 @@ bool BlockDeque<T>::pop(T &item, int timeout)
     return true;
 }
 
+// ?
 template <class T>
 void BlockDeque<T>::flush()
 {

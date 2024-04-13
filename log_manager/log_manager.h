@@ -1,0 +1,60 @@
+#pragma once
+
+#include <mutex>
+#include <string>
+#include <thread>
+#include <sys/time.h>
+#include <string.h>
+#include <stdarg.h> // vastart va_end
+#include <assert.h>
+#include <sys/stat.h> //mkdir
+#include "block_queue.h"
+#include "log_buffer.h"
+
+class Log
+{
+public:
+    void init(int level, const char *path = "../log",
+              const char *suffix = ".log",
+              int maxQueueCapacity = 1024);
+
+    // 单例
+    static Log *Instance();
+    static void FlushLogThread();
+
+    void write(int level, const char *format, ...);
+    void flush();
+
+    int GetLevel();
+    void SetLevel(int level);
+    bool IsOpen() { return isOpen_; }
+
+private:
+    Log();
+    virtual ~Log();
+    void AppendLogLevelTitle_(int level);
+    void AsyncWrite_();
+
+private:
+    // 规定参数
+    static const int LOG_PATH_LEN = 256;
+    static const int LOG_NAME_LEN = 256;
+    static const int MAX_LINES = 50000;
+
+    // 路径和后缀名
+    const char *path_;
+    const char *suffix_;
+
+    int MAX_LINES_;
+    int lineCount_;
+    int toDay_;
+
+    bool isOpen_;
+    int level_;
+    bool isAsync_;
+
+    FILE *fp_;
+    std::unique_ptr<BlockDeque<std::string>> deque_;
+    std::unique_ptr<std::thread> writeThread_;
+    std::mutex mtx_;
+}
