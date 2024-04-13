@@ -14,16 +14,16 @@
 class Log
 {
 public:
-    void init(int level, const char *path = "../log",
+    void init(int level = 1, const char *path = "../log",
               const char *suffix = ".log",
               int maxQueueCapacity = 1024);
 
     // 单例
     static Log *Instance();
-    static void FlushLogThread();
+    static void FlushLogThread(); // log的写入线程
 
     void write(int level, const char *format, ...);
-    void flush();
+    void flush(); // 缓冲区写入
 
     int GetLevel();
     void SetLevel(int level);
@@ -45,6 +45,9 @@ private:
     const char *path_;
     const char *suffix_;
 
+    // buffer
+    Buffer buff_;
+
     int MAX_LINES_;
     int lineCount_;
     int toDay_;
@@ -57,4 +60,4 @@ private:
     std::unique_ptr<BlockDeque<std::string>> deque_;
     std::unique_ptr<std::thread> writeThread_;
     std::mutex mtx_;
-}
+};

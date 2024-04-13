@@ -53,4 +53,4 @@ private:
     std::vector<char> buffer_;
     std::atomic<std::size_t> readPos_; // 原子变量
     std::atomic<std::size_t> writePos_;
-}
+};

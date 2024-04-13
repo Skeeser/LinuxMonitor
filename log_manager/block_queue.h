@@ -200,7 +200,7 @@ bool BlockDeque<T>::pop(T &item, int timeout)
     return true;
 }
 
-// ?
+// 刷新, 让pop线程知道deque close, 以便关闭线程
 template <class T>
 void BlockDeque<T>::flush()
 {
