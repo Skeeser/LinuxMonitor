@@ -23,4 +23,5 @@ add_executable(server ${SOURCES})
 target_link_libraries(server
     PUBLIC
     monitor_proto
+    log_manager
 )
