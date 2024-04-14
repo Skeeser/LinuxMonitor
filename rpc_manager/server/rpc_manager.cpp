@@ -5,7 +5,8 @@ namespace monitor
     GrpcManagerImpl::GrpcManagerImpl()
     {
         // 初始化日志
-        Log::Instance()->init(1, "../log/server", ".log", 1024);
+        Log::Instance()->init(1, "./server_log", ".log", 1024);
+        LOG_INFO("<-----------------SERVER---------------->");
     }
 
     GrpcManagerImpl::~GrpcManagerImpl() {}

@@ -5,7 +5,8 @@ namespace monitor
     RpcClient::RpcClient()
     {
         // 初始化日志
-        Log::Instance()->init(1, "../log/client", ".log", 1024);
+        Log::Instance()->init(1, "../client_log", ".log", 1024);
+        LOG_INFO("<-----------------CLIENT---------------->");
         FILE *fp;
         fp = fopen("ip_address.txt", "r");
         char ipStr[50];
@@ -38,6 +39,7 @@ namespace monitor
             stubPtr_->SetMonitorInfo(&context, monito_info, &response);
         if (status.ok())
         {
+            LOG_INFO("Successfully set monitor info.")
         }
         else
         {
@@ -55,6 +57,7 @@ namespace monitor
             stubPtr_->GetMonitorInfo(&context, request, monito_info);
         if (status.ok())
         {
+            LOG_INFO("Successfully get monitor info.")
         }
         else
         {

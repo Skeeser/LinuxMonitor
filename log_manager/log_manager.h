@@ -70,6 +70,7 @@ private:
         if (log->IsOpen() && log->GetLevel() <= level) \
         {                                              \
             log->write(level, format, ##__VA_ARGS__);  \
+            log->flush();                              \
         }                                              \
     } while (0);
 

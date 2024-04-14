@@ -56,6 +56,7 @@ void Log::init(int level, const char *path,
             mkdir(path_, 0777);
             fp_ = fopen(fileName, "a");
         }
+        // std::cout << path_ << std::endl;
         assert(fp_ != nullptr);
     }
 }
@@ -223,6 +224,8 @@ void Log::AsyncWrite_()
     while (deque_->pop(str)) // pop()是阻塞的, 直到队列关闭才会返回false
     {
         std::lock_guard<std::mutex> locker(mtx_);
+        // std::cout << (bool)(fp_ == nullptr) << std::endl;
         fputs(str.c_str(), fp_);
+        // fflush(fp_);
     }
 }
