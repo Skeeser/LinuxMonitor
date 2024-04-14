@@ -31,7 +31,7 @@ namespace monitor
             one_softirq.clear();
         }
 
-        for (int i = 0; i < SoftIrq[0].size() - 1; i++)
+        for (int i = 0; i < softirq[0].size() - 1; i++)
         {
             // 将文件的信息赋值到结构体中
             std::string name = softirq[0][i];
@@ -53,10 +53,10 @@ namespace monitor
             auto iter = cpu_softirqs_.find(name);
             if (iter != cpu_softirqs_.end())
             {
-                auto &old = iter.second;
+                auto &old = iter->second;
                 double period = Utils::SteadyTimeSecond(info.timepoint, old.timepoint);
                 // 计算赋值进protobuf
-                auto one_softirq_msg = monitor_info.add_soft_irq();
+                auto one_softirq_msg = monitor_info->add_soft_irq();
                 one_softirq_msg->set_cpu(info.cpu_name);
                 one_softirq_msg->set_hi((info.hi - old.hi) / period);
                 one_softirq_msg->set_timer((info.timer - old.timer) / period);
