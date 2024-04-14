@@ -38,13 +38,13 @@
 
 ## 文件结构
 ./
-├── assets => 资源文件  
-├── doc => 存放开发相关文档  
-├── docker   => docker镜像相关  
-├── log_manager => 日志系统
-├── monitor_work => 监控功能代码
-├── proto => 定义protobuf
-└── rpc_manager => grpc相关
+├── assets => 资源文件   
+├── doc => 存放开发相关文档   
+├── docker   => docker镜像相关   
+├── log_manager => 日志系统  
+├── monitor_work => 监控功能代码  
+├── proto => 定义protobuf  
+└── rpc_manager => grpc相关  
 
 
 <br>
@@ -57,7 +57,7 @@ Linux
 
 
 ## 应用技术
-C++、Docker、gRPC、protobuf、Cmake、qt5
+C++、Docker、gRPC、protobuf、Cmake、异步日志
 
 <br>
 
