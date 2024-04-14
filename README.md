@@ -62,18 +62,33 @@ C++、Docker、gRPC、protobuf、Cmake、qt5
 ### 先构建docker容器
 #### 镜像创建 
 ```shell
+cd docker/scripts
 ./docker_build.sh
 ```
 
-#### 运行镜像脚本
+#### 创建容器
 ```shell
 ./docker_run.sh
+```
+
+#### 进入容器
+```shell
 ./docker_into.sh
 ```
 
-### 然后编译
+#### 删除容器
 ```shell
-cd work/build/
+./docker_stop_and_run.sh
+```
+
+<br>
+
+### 然后编译
+进入容器后
+```shell
+cd work
+mkdir build
+cd build
 cmake ..
 make -j8
 ```
@@ -81,25 +96,19 @@ make -j8
 <br>
 
 ## 运行
-
-### 启动grpc服务
+### 启动grpc服务(主服务器)
+在`build`文件夹下  
 ```shell
-cd rpc_manager/server/
-./server
-
+./rpc_manager/server/server
 ```
 
-### 启动监控
+### 启动监控(需要监控的服务器)
 ```shell
-cd work/cmake/test_monitor/.monitor
+./monitor_work/src/monitor
 ```
 
 ### 展示数据
-另开一个终端  
-```shell
-cd work/cmake/display/
-./display
-```
+- [ ] 前端待做
 
 <br>
 
