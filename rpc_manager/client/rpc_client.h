@@ -1,5 +1,8 @@
 #pragma once
 
+#include <fstream>
+#include <iostream>
+#include <sstream>
 #include <grpc/grpc.h>
 #include <grpcpp/create_channel.h>
 #include <grpcpp/grpcpp.h>
