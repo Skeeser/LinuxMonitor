@@ -112,10 +112,7 @@ cd work/cmake/display/
 如果你碰巧看见这个项目, 想要参与开发  
 可以查看这个文档 [如何参与开源项目](doc/github参与开源项目流程.md)  
 
-<br>
-
-## 关于作者
-keeser
+如果想了解这个项目, 可以查看[开发文档](doc/dev.md)  
 
 <br>
 
