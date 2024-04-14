@@ -19,8 +19,12 @@ namespace monitor
         // 赋值
         monitorInfos_ = *request;
         // 通过日志写入
-        // std::cout << "into" << request->soft_irq_size() << std::endl;
-        LOG_INFO("Soft_irq_size: %d", request->soft_irq_size());
+        // LOG_INFO("Soft_irq_size: %d", request->soft_irq_size());
+        std::string monitorInfoStr;
+        request->SerializeToString(&monitorInfoStr);
+        // std::cout << monitorInfoStr << std::endl;
+        LOG_INFO("Info:\n %s", monitorInfoStr.c_str());
+
         return ::grpc::Status::OK;
     }
 
