@@ -11,7 +11,7 @@ namespace monitor
     public:
         MonitorInter(){};
         virtual ~MonitorInter() {}
-        virtual void UpdateOnce(monitor::proto::MonitorInfo *monitor_info) = 0;
+        virtual void UpdateOnce(monitor::proto::MonitorInfo *monitor_info) = 0; // 提取数据
         virtual void Stop() = 0;
     };
 }
