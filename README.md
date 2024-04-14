@@ -1,7 +1,7 @@
 <div align="center">
 
-<img alt="LOGO" src="assets/logo.png" height="256" />
-
+<img alt="LOGO" src="assets/logo1.png" height="256" />
+![Alt text](image.png)
 # LinuxMonitor
 
 <br>
