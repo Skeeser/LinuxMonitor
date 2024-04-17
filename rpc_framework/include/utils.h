@@ -1,0 +1,6 @@
+#include <zlib>
+
+namespace network
+{
+
+}
