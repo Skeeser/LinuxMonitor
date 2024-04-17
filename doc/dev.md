@@ -5,46 +5,8 @@
 4、Protocol Buffers序列化：构建整个项目的数据结构，并确保高效的数据交换。 
 
 
-
-
 ## docker部分
-### 镜像创建 
-```shell
-./docker_build.sh
-```
-
-### 运行镜像脚本
-```shell
-./docker_run.sh
-./docker_into.sh
-```
-
-## 镜像内
-### 编译
-```shell
-cd work/cmake/
-cmake ..
-make -j8
-```
-
-### 启动grpc服务
-```shell
-cd rpc_manager/server/
-./server
-
-```
-
-### 启动监控
-```shell
-cd work/cmake/test_monitor/.monitor
-```
-
-### 展示数据
-另开一个终端  
-```shell
-cd work/cmake/display/
-./display
-```
+便于安装相关依赖环境  
 
 # 开发部分
 ## docker
@@ -94,7 +56,9 @@ gRPC 是一个高性能、开源、通用的RPC框架，由Google推出，基于
 异步日志  
 
 ## todo
-异常处理
-ai调参调优
-假如有100台, 怎么集中管理
-任务三怎么实现
+异常处理  
+ai调参调优  
+假如有100台, 怎么集中管理  
+任务三怎么实现  
+负载均衡  
+自己写一个rpc  
