@@ -3,6 +3,7 @@
 #include <google/protobuf/message.h>
 #include "network/Endian.h"
 #include "network/TcpConnection.h"
+#include "utils.h"
 
 namespace network
 {
@@ -23,7 +24,7 @@ namespace network
         // 序列化
         int byte_size = serializeToBuffer(message, buf);
         // 获取已经写入的大小
-        int32_t readedSum =
+        int32_t readedSum = Utils::checkSum()
     }
 
     void RpcCodec::onMessage(const TcpConnectionPtr &conn, Buffer *buf);
