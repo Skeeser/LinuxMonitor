@@ -24,10 +24,18 @@ namespace network
         // 序列化
         int byte_size = serializeToBuffer(message, buf);
         // 获取已经写入的大小
-        int32_t readedSum = Utils::checkSum()
+        int32_t checksum = Utils::checkSum(buf->peek(), static_cast<int>(buf->readableBytes()));
+        buf->appendInt32(checksum);
+        assert(buf->readableBytes() == tag_.size() + byte_size + kChecksumLen);
+        (void)byte_size;
+        // 主机顺序变为网络顺序
+        int32_t len = sockets::hostToNetwork32(static_cast<int32_t>(buf->readableBytes()));
+        buf->prepend(&len, sizeof len);
     }
 
-    void RpcCodec::onMessage(const TcpConnectionPtr &conn, Buffer *buf);
+    void RpcCodec::onMessage(const TcpConnectionPtr &conn, Buffer *buf)
+    {
+        }
     bool RpcCodec::parseFromBuffer(const void *buf, int len,
                                    google::protobuf::Message *message);
     int RpcCodec::serializeToBuffer(const google::protobuf::Message &message, Buffer *buf);

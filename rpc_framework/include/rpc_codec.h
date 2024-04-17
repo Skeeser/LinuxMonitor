@@ -59,7 +59,7 @@ namespace network
         int serializeToBuffer(const google::protobuf::Message &message, Buffer *buf);
         ErrorCode parse(const char *buf, int len,
                         ::google::protobuf::Message *message);
-        // 将message内容复制到空白的buffer中
+        // 将message内容复制到空白的buffer中, 包括size "rpc0" 序列化的内容 checksum
         void fillEmptyBuffer(Buffer *buf, const google::protobuf::Message &message);
 
     private:
