@@ -103,6 +103,22 @@ namespace network
         return error;
     }
 
-    int RpcCodec::serializeToBuffer(const google::protobuf::Message &message, Buffer *buf);
+    int RpcCodec::serializeToBuffer(const google::protobuf::Message &message, Buffer *buf)
+    {
+#if GOOGLE_PROTOBUF_VERSION > 3009002
+        int byte_size = google::protobuf::internal::ToIntSize(message.ByteSizeLong());
+#else
+        int byte_size = message.ByteSize();
+#endif
+
+        // 扩充空间
+        buf->ensureWritableBytes(byte_size + kChecksumLen);
+
+        uint8_t *start = reinterpret_cast<uint8_t *>(buf->beginWrite());
+        uint8_t *end = message.SerializeWithCachedSizesToArray(start);
+        assert((int)(end - start) == byte_size);
+        buf->hasWritten(byte_size);
+        return byte_size;
+    }
 
 }

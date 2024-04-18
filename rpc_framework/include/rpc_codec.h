@@ -30,6 +30,7 @@ namespace network
     // payload   N-byte
     // checksum  4-byte  adler32 of "RPC0"+payload
 
+    // 编码类
     class RpcCodec
     {
     public:
