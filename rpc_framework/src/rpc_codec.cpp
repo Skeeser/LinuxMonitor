@@ -35,14 +35,74 @@ namespace network
 
     void RpcCodec::onMessage(const TcpConnectionPtr &conn, Buffer *buf)
     {
-        }
-    bool RpcCodec::parseFromBuffer(const void *buf, int len,
-                                   google::protobuf::Message *message);
-    int RpcCodec::serializeToBuffer(const google::protobuf::Message &message, Buffer *buf);
-    ErrorCode RpcCodec::parse(const char *buf, int len,
-                              ::google::protobuf::Message *message);
+        while (buf->readableBytes() >= static_cast<uint32_t>(kMinMessageLen + kHeaderLen))
+        {
+            const int32_t len = buf->peekInt32();
+            if (len > kMaxMessageLen || len < kMinMessageLen)
+            {
+                break;
+            }
+            else if (buf->readableBytes() >= size_t(kHeaderLen + len))
+            {
+                RpcMessagePtr message(new RpcMessage());
+                ErrorCode errorCode = parse(buf->peek() + kHeaderLen, len, message.get());
 
-    static int32_t RpcCodec::checksum(const void *buf, int len);
-    static bool RpcCodec::validateChecksum(const char *buf, int len);
-    static int32_t RpcCodec::asInt32(const char *buf);
+                if (errorCode == kNoError)
+                {
+                    messageCallback_(conn, message);
+                    buf->retrieve(kHeaderLen + len);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    bool RpcCodec::parseFromBuffer(const void *buf, int len,
+                                   google::protobuf::Message *message)
+    {
+        return message->ParseFromArray(buf, len);
+    }
+    ErrorCode RpcCodec::parse(const char *buf, int len,
+                              ::google::protobuf::Message *message)
+    {
+        ErrorCode error = kNoError;
+
+        // 检验校验和
+        if (Utils::validateChecksum(buf, len, kChecksumLen))
+        {
+            // 验证tag是否正确
+            if (memcmp(buf, tag_.data(), tag_.size()) == 0)
+            {
+                const char *data = buf + tag_.size();
+                int32_t dataLen = len - kChecksumLen - static_cast<int>(tag_.size());
+                if (parseFromBuffer(data, dataLen, message))
+                {
+                    error = kNoError;
+                }
+                else
+                {
+                    error = kParseError;
+                }
+            }
+            else
+            {
+                error = kUnknownMessageType;
+            }
+        }
+        else
+        {
+            errpr = kCheckSumError;
+        }
+
+        return error;
+    }
+
+    int RpcCodec::serializeToBuffer(const google::protobuf::Message &message, Buffer *buf);
+
 }

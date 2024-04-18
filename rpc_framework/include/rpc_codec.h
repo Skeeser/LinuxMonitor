@@ -52,13 +52,17 @@ namespace network
         ~ProtoRpcCodec() {}
         // 通过tcp发送msg
         void send(const TcpConnectionPtr &conn, const ::google::protobuf::Message &message);
+        // 将可放入的buf内容放入msg中, 并调用msg回调函数
         void onMessage(const TcpConnectionPtr &conn, Buffer *buf);
+        // 从buffer中赋值给msg, 不包含size段
         bool parseFromBuffer(const void *buf, int len,
                              google::protobuf::Message *message);
-        // 将msg数据序列化到buff中
-        int serializeToBuffer(const google::protobuf::Message &message, Buffer *buf);
         ErrorCode parse(const char *buf, int len,
                         ::google::protobuf::Message *message);
+
+        // 将msg数据序列化到buff中
+        int serializeToBuffer(const google::protobuf::Message &message, Buffer *buf);
+
         // 将message内容复制到空白的buffer中, 包括size "rpc0" 序列化的内容 checksum
         void fillEmptyBuffer(Buffer *buf, const google::protobuf::Message &message);
 
