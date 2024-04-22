@@ -2,7 +2,7 @@
 #include <thread>
 #include <vector>
 
-#include "client/rpc_client.h"
+#include "client/grpc_client.h"
 #include "monitor/cpu_load_monitor.h"
 #include "monitor/cpu_softirq_monitor.h"
 #include "monitor/cpu_stat_monitor.h"
@@ -49,7 +49,7 @@ void RpcRun()
 
 int main()
 {
-    
+
     RpcRun();
     return 0;
 }

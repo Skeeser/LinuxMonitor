@@ -1,4 +1,4 @@
-#include "rpc_client.h"
+#include "grpc_client.h"
 
 namespace monitor
 {

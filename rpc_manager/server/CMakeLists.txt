@@ -9,7 +9,7 @@
 #
 set(SOURCES
     main.cpp
-    rpc_manager.cpp
+    grpc_manager.cpp
 )
 
 # source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCES})
@@ -22,5 +22,6 @@ target_link_libraries(server
     PUBLIC 
     monitor_proto 
     log_manager 
+    rpc_framework
 )
 

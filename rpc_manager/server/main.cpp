@@ -2,7 +2,7 @@
 #include <grpc/grpc.h>
 #include <grpcpp/server_builder.h>
 
-#include "rpc_manager.h"
+#include "grpc_manager.h"
 
 constexpr char kServerPortInfo[] = "0.0.0.0:50051";
 void InitServer()

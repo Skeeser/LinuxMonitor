@@ -1,5 +1,5 @@
 #include <string>
-#include "rpc_client.h"
+#include "grpc_client.h"
 #include "monitor_info.grpc.pb.h"
 #include "monitor_info.pb.h"
 
