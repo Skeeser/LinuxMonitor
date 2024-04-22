@@ -7,7 +7,7 @@ set(SOURCES
 add_library(rpc_framework ${SOURCES})
 
 target_include_directories(rpc_framework PUBLIC
-  ${PROJECT_SOURCE_DIR}/
+  ${PROJECT_SOURCE_DIR}/rpc_framework/include
 )
 
 target_link_libraries(rpc_framework

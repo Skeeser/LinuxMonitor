@@ -19,7 +19,7 @@ namespace network
 
         void setThreadNum(int numThreads) { server_.setThreadNum(numThreads); }
 
-        void registerService(::google::protobuf::Service *);
+        void registerService(::google::protobuf::Service *service);
         void start();
 
     private:
