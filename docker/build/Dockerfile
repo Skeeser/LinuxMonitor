@@ -28,6 +28,7 @@ RUN apt-get update  && apt-get upgrade -y  && \
     qt5-qmake \
     qtbase5-dev-tools \
     libboost-all-dev \
+    libgoogle-glog-dev \
     net-tools \
     vim \
     stress 

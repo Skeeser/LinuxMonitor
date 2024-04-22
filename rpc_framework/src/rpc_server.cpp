@@ -6,7 +6,7 @@
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/service.h>
 
-#include "RpcChannel.h"
+#include "rpc_channel.h"
 
 RpcServer::RpcServer(EventLoop *loop, const InetAddress &listenAddr)
     : server_(loop, listenAddr, "RpcServer")

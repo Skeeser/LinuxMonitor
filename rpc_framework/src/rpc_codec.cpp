@@ -1,8 +1,8 @@
 #include "rpc_codec.h"
 
 #include <google/protobuf/message.h>
-#include "network/Endian.h"
-#include "network/TcpConnection.h"
+#include "Endian.h"
+#include "TcpConnection.h"
 #include "utils.h"
 
 namespace network
