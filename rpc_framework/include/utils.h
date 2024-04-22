@@ -1,4 +1,4 @@
-#include <zlib>
+#include <zlib.h>
 
 namespace network
 {
@@ -16,8 +16,8 @@ namespace network
         {
             // check sum
             int32_t expectedCheckSum = asInt32(buf + len - kChecksumLen);
-            int32_t checkSum = checkSum(buf, len - kChecksumLen);
-            return expectedCheckSum == checkSum;
+            int32_t checksum = checkSum(buf, len - kChecksumLen);
+            return expectedCheckSum == checksum;
         }
 
         // buf转换成int32

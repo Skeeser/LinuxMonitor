@@ -57,7 +57,7 @@ namespace network
         void onMessage(const TcpConnectionPtr &conn, Buffer *buf);
         // 从buffer中赋值给msg, 不包含size段
         bool parseFromBuffer(const void *buf, int len,
-                             google::protobuf::Message *message);
+                             ::google::protobuf::Message *message);
         ErrorCode parse(const char *buf, int len,
                         ::google::protobuf::Message *message);
 

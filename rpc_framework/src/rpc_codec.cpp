@@ -63,13 +63,15 @@ namespace network
             }
         }
     }
+
     bool RpcCodec::parseFromBuffer(const void *buf, int len,
-                                   google::protobuf::Message *message)
+                                   ::google::protobuf::Message *message)
     {
         return message->ParseFromArray(buf, len);
     }
-    ErrorCode RpcCodec::parse(const char *buf, int len,
-                              ::google::protobuf::Message *message)
+
+    RpcCodec::ErrorCode RpcCodec::parse(const char *buf, int len,
+                                        ::google::protobuf::Message *message)
     {
         ErrorCode error = kNoError;
 
@@ -97,7 +99,7 @@ namespace network
         }
         else
         {
-            errpr = kCheckSumError;
+            error = kCheckSumError;
         }
 
         return error;
