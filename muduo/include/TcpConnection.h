@@ -4,9 +4,9 @@
 
 #include <boost/any.hpp>
 
-#include "network/Buffer.h"
-#include "network/Callbacks.h"
-#include "network/InetAddress.h"
+#include "Buffer.h"
+#include "Callbacks.h"
+#include "InetAddress.h"
 
 // struct tcp_info is in <netinet/tcp.h>
 struct tcp_info;

@@ -1,4 +1,4 @@
-#include "network/EventLoop.h"
+#include "EventLoop.h"
 
 #include <signal.h>
 #include <sys/eventfd.h>
@@ -9,9 +9,9 @@
 
 #include <glog/logging.h>
 
-#include "network/Channel.h"
-#include "network/Poller.h"
-#include "network/SocketsOps.h"
+#include "Channel.h"
+#include "Poller.h"
+#include "SocketsOps.h"
 
 using namespace network;
 

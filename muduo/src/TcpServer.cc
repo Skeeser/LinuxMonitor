@@ -1,15 +1,15 @@
-#include "network/TcpServer.h"
+#include "TcpServer.h"
 
-#include <stdio.h>  // snprintf
+#include <stdio.h> // snprintf
 
 #include <cassert>
 
 #include <glog/logging.h>
 
-#include "network/Acceptor.h"
-#include "network/EventLoop.h"
-#include "network/EventLoopThreadPool.h"
-#include "network/SocketsOps.h"
+#include "Acceptor.h"
+#include "EventLoop.h"
+#include "EventLoopThreadPool.h"
+#include "SocketsOps.h"
 
 using namespace network;
 
@@ -22,16 +22,19 @@ TcpServer::TcpServer(EventLoop *loop, const InetAddress &listenAddr,
       threadPool_(new EventLoopThreadPool(loop, name_)),
       connectionCallback_(defaultConnectionCallback),
       messageCallback_(defaultMessageCallback),
-      nextConnId_(1) {
+      nextConnId_(1)
+{
   acceptor_->setNewConnectionCallback(
       std::bind(&TcpServer::newConnection, this, _1, _2));
 }
 
-TcpServer::~TcpServer() {
+TcpServer::~TcpServer()
+{
   loop_->assertInLoopThread();
   LOG(INFO) << "TcpServer::~TcpServer [" << name_ << "] destructing";
   started_ = false;
-  for (auto &item : connections_) {
+  for (auto &item : connections_)
+  {
     TcpConnectionPtr conn(item.second);
     item.second.reset();
     conn->getLoop()->runInLoop(
@@ -39,12 +42,14 @@ TcpServer::~TcpServer() {
   }
 }
 
-void TcpServer::setThreadNum(int numThreads) {
+void TcpServer::setThreadNum(int numThreads)
+{
   assert(0 <= numThreads);
   threadPool_->setThreadNum(numThreads);
 }
 
-void TcpServer::start() {
+void TcpServer::start()
+{
   // if (started_) {
   //   LOG(INFO) << "server is running";
   //   abort();
@@ -57,7 +62,8 @@ void TcpServer::start() {
   loop_->runInLoop(std::bind(&Acceptor::listen, get_pointer(acceptor_)));
 }
 
-void TcpServer::newConnection(int sockfd, const InetAddress &peerAddr) {
+void TcpServer::newConnection(int sockfd, const InetAddress &peerAddr)
+{
   loop_->assertInLoopThread();
   EventLoop *ioLoop = threadPool_->getNextLoop();
   char buf[64];
@@ -77,16 +83,18 @@ void TcpServer::newConnection(int sockfd, const InetAddress &peerAddr) {
   conn->setMessageCallback(messageCallback_);
   conn->setWriteCompleteCallback(writeCompleteCallback_);
   conn->setCloseCallback(
-      std::bind(&TcpServer::removeConnection, this, _1));  // FIXME: unsafe
+      std::bind(&TcpServer::removeConnection, this, _1)); // FIXME: unsafe
   ioLoop->runInLoop(std::bind(&TcpConnection::connectEstablished, conn));
 }
 
-void TcpServer::removeConnection(const TcpConnectionPtr &conn) {
+void TcpServer::removeConnection(const TcpConnectionPtr &conn)
+{
   // FIXME: unsafe
   loop_->runInLoop(std::bind(&TcpServer::removeConnectionInLoop, this, conn));
 }
 
-void TcpServer::removeConnectionInLoop(const TcpConnectionPtr &conn) {
+void TcpServer::removeConnectionInLoop(const TcpConnectionPtr &conn)
+{
   loop_->assertInLoopThread();
   LOG(INFO) << "TcpServer::removeConnectionInLoop [" << name_
             << "] - connection " << conn->name();

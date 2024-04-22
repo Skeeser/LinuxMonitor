@@ -1,11 +1,11 @@
-#include "network/Channel.h"
+#include "Channel.h"
 
 #include <poll.h>
 
 #include <cassert>
 #include <sstream>
 
-#include "network/EventLoop.h"
+#include "EventLoop.h"
 
 namespace network {
 

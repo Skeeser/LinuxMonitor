@@ -66,7 +66,7 @@ namespace network
         }
         else if (message.type() == REQUEST)
         {
-            handleRequestMsg_(messagePtr);
+            handleRequestMsg_(conn, messagePtr);
         }
     }
 
@@ -89,7 +89,7 @@ namespace network
 
         {
             std::lock_guard<std::mutex> locker(mutex_);
-            auto it = outstanding_.find(id);
+            auto it = outstandings_.find(id);
             if (it != outstandings_.end())
             {
                 // 从待完成response中删去
@@ -104,7 +104,7 @@ namespace network
             // 转移到智能指针中自动释放
             std::unique_ptr<::google::protobuf::Message> responsePtr(out.response);
 
-            if (!out.response().empty())
+            if (!message.response().empty())
             {
                 out.response->ParseFromString(message.response());
             }
@@ -124,9 +124,9 @@ namespace network
         if (services_)
         {
             // 查找服务中有没有message中对应的服务
-            auto it = services_.find(message.service());
+            auto it = services_->find(message.service());
 
-            if (it != services_.end())
+            if (it != services_->end())
             {
                 // 获取对应服务
                 ::google::protobuf::Service *service = it->second;
@@ -147,8 +147,8 @@ namespace network
                         ::google::protobuf::Message *responseMsg =
                             service->GetResponsePrototype(method).New();
                         int64_t id = message.id();
-                        service->CallMethod(method, NULL, request.get(), responseMsg,
-                                            NewCallback(this, &RpcChannel::doneCallback, response, id));
+                        service->CallMethod(method, NULL, requestMsg.get(), responseMsg,
+                                            NewCallback(this, &RpcChannel::doneCallback_, responseMsg, id));
                         error = NO_ERROR;
                     }
                     else

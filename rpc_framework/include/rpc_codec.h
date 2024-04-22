@@ -49,8 +49,8 @@ namespace network
             kParseError,
         };
 
-        explicit ProtoRpcCodec(const ProtobufMessageCallback &messageCb) : messageCallback_(messageCb) {}
-        ~ProtoRpcCodec() {}
+        explicit RpcCodec(const ProtobufMessageCallback &messageCb) : messageCallback_(messageCb) {}
+        ~RpcCodec() {}
         // 通过tcp发送msg
         void send(const TcpConnectionPtr &conn, const ::google::protobuf::Message &message);
         // 将可放入的buf内容放入msg中, 并调用msg回调函数

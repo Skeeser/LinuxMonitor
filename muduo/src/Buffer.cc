@@ -1,9 +1,9 @@
-#include "network/Buffer.h"
+#include "Buffer.h"
 
 #include <errno.h>
 #include <sys/uio.h>
 
-#include "network/SocketsOps.h"
+#include "SocketsOps.h"
 
 namespace network {
 const char Buffer::kCRLF[] = "\r\n";

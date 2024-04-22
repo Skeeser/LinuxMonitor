@@ -3,7 +3,7 @@
 #include <atomic>
 #include <map>
 
-#include "network/TcpConnection.h"
+#include "TcpConnection.h"
 
 namespace network {
 

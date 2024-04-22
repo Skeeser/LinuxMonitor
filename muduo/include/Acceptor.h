@@ -2,46 +2,49 @@
 
 #include <functional>
 
-#include "network/Channel.h"
-#include "network/Socket.h"
+#include "Channel.h"
+#include "Socket.h"
 
-namespace network {
+namespace network
+{
 
-class EventLoop;
-class InetAddress;
+  class EventLoop;
+  class InetAddress;
 
-///
-/// Acceptor of incoming TCP connections.
-///
-class Acceptor {
- public:
-  typedef std::function<void(int sockfd, const InetAddress &)>
-      NewConnectionCallback;
+  ///
+  /// Acceptor of incoming TCP connections.
+  ///
+  class Acceptor
+  {
+  public:
+    typedef std::function<void(int sockfd, const InetAddress &)>
+        NewConnectionCallback;
 
-  Acceptor(EventLoop *loop, const InetAddress &listenAddr, bool reuseport);
-  ~Acceptor();
+    Acceptor(EventLoop *loop, const InetAddress &listenAddr, bool reuseport);
+    ~Acceptor();
 
-  void setNewConnectionCallback(const NewConnectionCallback &cb) {
-    newConnectionCallback_ = cb;
-  }
+    void setNewConnectionCallback(const NewConnectionCallback &cb)
+    {
+      newConnectionCallback_ = cb;
+    }
 
-  void listen();
+    void listen();
 
-  bool listening() const { return listening_; }
+    bool listening() const { return listening_; }
 
-  // Deprecated, use the correct spelling one above.
-  // Leave the wrong spelling here in case one needs to grep it for error
-  // messages. bool listenning() const { return listening(); }
+    // Deprecated, use the correct spelling one above.
+    // Leave the wrong spelling here in case one needs to grep it for error
+    // messages. bool listenning() const { return listening(); }
 
- private:
-  void handleRead();
+  private:
+    void handleRead();
 
-  EventLoop *loop_;
-  Socket acceptSocket_;
-  Channel acceptChannel_;
-  NewConnectionCallback newConnectionCallback_;
-  bool listening_;
-  int idleFd_;
-};
+    EventLoop *loop_;
+    Socket acceptSocket_;
+    Channel acceptChannel_;
+    NewConnectionCallback newConnectionCallback_;
+    bool listening_;
+    int idleFd_;
+  };
 
-}  // namespace network
+} // namespace network

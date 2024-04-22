@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(log_manager)
 add_subdirectory(proto)
+add_subdirectory(muduo)
 add_subdirectory(rpc_manager)
 add_subdirectory(monitor_work)
 add_subdirectory(rpc_framework)
