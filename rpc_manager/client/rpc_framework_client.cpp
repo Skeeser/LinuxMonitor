@@ -1,21 +1,21 @@
-#include "grpc_client.h"
+#include "rpc_framework_client.h"
 
 namespace monitor
 {
     RpcClient::RpcClient(network::EventLoop *loop, const network::InetAddress &serverAddr)
-        : loop_(loop), client_(loop, serverAddr, "RpcClient"), channel_(new RpcChannel), stub(get_pointer(channel_))
+        : loop_(loop), client_(loop, serverAddr, "RpcClient"), channel_(new network::RpcChannel), stub_(network::get_pointer(channel_))
 
     {
         // 初始化日志
         Log::Instance()->init(1, "./client_log", ".log", 1024);
         LOG_INFO("<-----------------CLIENT---------------->");
 
-        client_.setConnectionCallback(std::bind(&RpcClient::onConnection, this, _1));
-        client_.setMessageCallback(std::bind(&RpcChannel, get_pointer(channel_), _1, _2));
+        client_.setConnectionCallback(std::bind(&RpcClient::onConnection_, this, _1));
+        client_.setMessageCallback(std::bind(&network::RpcChannel::onMessage, network::get_pointer(channel_), _1, _2));
     }
 
-    RpcClient::RpcClient(EventLoop *loop)
-        : loop_(loop), channel_(new RpcChannel), stub(get_pointer(channel_))
+    RpcClient::RpcClient(network::EventLoop *loop)
+        : loop_(loop), channel_(new network::RpcChannel), stub_(network::get_pointer(channel_))
 
     {
 
@@ -29,7 +29,7 @@ namespace monitor
 
         std::string ip;
         uint16_t port;
-        if (ifs_.eof() || line.empty())
+        if (ifs.eof() || line.empty())
         {
             ip = "localhost";
             port = 50051;
@@ -40,8 +40,8 @@ namespace monitor
             int pos = line.find(':');
             if (pos != std::string::npos)
             {
-                ip = line.sub_str(0, pos);
-                port = std::stoi(line.sub_str(pos + 1, line.size() - pos - 1));
+                ip = line.substr(0, pos);
+                port = std::stoi(line.substr(pos + 1, line.size() - pos - 1));
             }
             else
             {
@@ -56,7 +56,7 @@ namespace monitor
         client_(loop, serverAddr, "RpcClient");
 
         client_.setConnectionCallback(std::bind(&RpcClient::onConnection_, this, _1));
-        client_.setMessageCallback(std::bind(&RpcChannel, get_pointer(channel_), _1, _2));
+        client_.setMessageCallback(std::bind(&network::RpcChannel::onMessage, get_pointer(channel_), _1, _2));
     }
 
     RpcClient::~RpcClient()
@@ -74,7 +74,7 @@ namespace monitor
 
         ::google::protobuf::Empty response;
 
-        stubPtr_->SetMonitorInfo(nullptr, monito_info, &response, nullptr);
+        stub_.SetMonitorInfo(monito_info, &response, nullptr);
 
         LOG_INFO("Successfully set monitor info.")
     }
@@ -82,7 +82,7 @@ namespace monitor
     {
 
         ::google::protobuf::Empty request;
-        stubPtr_->GetMonitorInfo(NULL, &request, monito_info, NewCallback(this, &RpcClient::closure_, response));
+        stub_.GetMonitorInfo(&request, monito_info, google::protobuf::NewCallback(this, &RpcClient::closure_, monito_info));
 
         LOG_INFO("Successfully get monitor info.")
     }

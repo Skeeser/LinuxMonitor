@@ -1,5 +1,8 @@
 #pragma once
-
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <cassert>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -8,9 +11,8 @@
 #include "InetAddress.h"
 #include "TcpClient.h"
 #include "TcpConnection.h"
-#include "RpcChannel.h"
-
-#include "monitor_info.pb.h"
+#include "rpc_channel.h"
+#include "rf_monitor_info.pb.h"
 #include "log_manager.h"
 
 namespace monitor
@@ -26,13 +28,13 @@ namespace monitor
         void connect() { client_.connect(); }
 
     private:
-        void onConnection_(const TcpConnectionPtr &conn);
+        void onConnection_(const network::TcpConnectionPtr &conn);
         void closure_(::monitor::proto::MonitorInfo *resp);
 
     private:
-        std::unique_ptr<monitor::proto::GrpcManager::Stub> stubPtr_;
+        monitor::proto::RpcManager::Stub stub_;
         network::EventLoop *loop_;
         network::TcpClient client_;
-        RpcChannelPtr channel_;
+        network::RpcChannelPtr channel_;
     };
 }

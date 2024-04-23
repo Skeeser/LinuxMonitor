@@ -1,22 +1,16 @@
-#
-# Dependencies
-#
-# find_package(Threads)
 
+if(IF_GRPC)
+    set(SOURCES
+        grpc_main.cpp
+        grpc_manager.cpp
+    )
+else()
+    set(SOURCES
+        rpc_framework_manager.cpp
+        rpc_framework_main.cpp
+    )
+endif()
 
-#
-# Sources
-#
-set(SOURCES
-    grpc_main.cpp
-    grpc_manager.cpp
-)
-
-# source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCES})
-
-#
-# Target
-#
 add_executable(server ${SOURCES}) 
 target_link_libraries(server 
     PUBLIC 

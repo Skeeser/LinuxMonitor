@@ -2,7 +2,7 @@
 
 #include "rpc_framework_manager.h"
 #include "EventLoop.h"
-#include "InetAddress"
+#include "InetAddress.h"
 #include "rpc_server.h"
 
 void InitServer()

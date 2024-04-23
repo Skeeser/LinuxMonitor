@@ -11,8 +11,7 @@ namespace monitor
 
     rpcFrameworkManagerImpl::~rpcFrameworkManagerImpl() {}
 
-    void rpcFrameworkManagerImpl::SetMonitorInfo(::google::protobuf::RpcController *controller,
-                                                 const ::monitor::proto::MonitorInfo *request,
+    void rpcFrameworkManagerImpl::SetMonitorInfo(const ::monitor::proto::MonitorInfo *request,
                                                  ::google::protobuf::Empty *response,
                                                  ::google::protobuf::Closure *done)
     {
@@ -39,8 +38,7 @@ namespace monitor
         return;
     }
 
-    void rpcFrameworkManagerImpl::GetMonitorInfo(::google::protobuf::RpcController *controller,
-                                                 const ::google::protobuf::Empty *request,
+    void rpcFrameworkManagerImpl::GetMonitorInfo(const ::google::protobuf::Empty *request,
                                                  ::monitor::proto::MonitorInfo *response,
                                                  ::google::protobuf::Closure *done)
     {

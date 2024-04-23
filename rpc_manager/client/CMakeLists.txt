@@ -1,34 +1,26 @@
-#
-# Dependencies
-#
-# find_package(Threads)
 
-#
-# Sources
-#
-set(SOURCES
+
+
+if(IF_GRPC)
+    set(SOURCES
     # main.cpp
     grpc_client.cpp
 )
+else()
+    set(SOURCES
+        rpc_framework_client.cpp
+    )
+endif()
 
-# source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCES})
-
-#
-# Target
-#
 # add_executable(client ${SOURCES})
 # client 作为库使用
+
 add_library(client  ${SOURCES})
 target_link_libraries(client
     PUBLIC
     monitor_proto
     log_manager
     rpc_framework
+    network
 )
 
-
-# INSTALL(TARGETS client
-#        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-#        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-# )

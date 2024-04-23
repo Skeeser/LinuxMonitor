@@ -3,7 +3,8 @@
 // #include <grpcpp/support/status.h>
 #include <unordered_map>
 
-#include "monitor_info.pb.h"
+// #include "monitor_info.grpc.pb.h"
+#include "rf_monitor_info.pb.h"
 #include "log_manager.h"
 #include "EventLoop.h"
 #include "rpc_server.h"
@@ -12,19 +13,17 @@
 namespace monitor
 {
     // 继承服务类
-    class rpcFrameworkManagerImpl : public monitor::proto::GrpcManager::Service
+    class rpcFrameworkManagerImpl : public monitor::proto::RpcManager
     {
     public:
         rpcFrameworkManagerImpl();
         virtual ~rpcFrameworkManagerImpl();
 
         // 返回全局命名空间的grpc的状态
-        void SetMonitorInfo(::google::protobuf::RpcController *controller,
-                            const ::monitor::proto::MonitorInfo *request,
+        void SetMonitorInfo(const ::monitor::proto::MonitorInfo *request,
                             ::google::protobuf::Empty *response,
                             ::google::protobuf::Closure *done);
-        void GetMonitorInfo(::google::protobuf::RpcController *controller,
-                            const ::google::protobuf::Empty *request,
+        void GetMonitorInfo(const ::google::protobuf::Empty *request,
                             ::monitor::proto::MonitorInfo *response,
                             ::google::protobuf::Closure *done);
 
