@@ -20,11 +20,13 @@ namespace monitor
         virtual ~rpcFrameworkManagerImpl();
 
         // 返回全局命名空间的grpc的状态
-        void SetMonitorInfo(const ::monitor::proto::MonitorInfo *request,
+        void SetMonitorInfo(::google::protobuf::RpcController *controller,
+                            const monitor::proto::MonitorInfo *request,
                             ::google::protobuf::Empty *response,
                             ::google::protobuf::Closure *done);
-        void GetMonitorInfo(const ::google::protobuf::Empty *request,
-                            ::monitor::proto::MonitorInfo *response,
+        void GetMonitorInfo(::google::protobuf::RpcController *controller,
+                            const ::google::protobuf::Empty *request,
+                            monitor::proto::MonitorInfo *response,
                             ::google::protobuf::Closure *done);
 
     private:

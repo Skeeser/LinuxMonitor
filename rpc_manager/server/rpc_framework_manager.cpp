@@ -11,7 +11,8 @@ namespace monitor
 
     rpcFrameworkManagerImpl::~rpcFrameworkManagerImpl() {}
 
-    void rpcFrameworkManagerImpl::SetMonitorInfo(const ::monitor::proto::MonitorInfo *request,
+    void rpcFrameworkManagerImpl::SetMonitorInfo(::google::protobuf::RpcController *controller,
+                                                 const monitor::proto::MonitorInfo *request,
                                                  ::google::protobuf::Empty *response,
                                                  ::google::protobuf::Closure *done)
     {
@@ -34,12 +35,13 @@ namespace monitor
                      request->soft_irq(i).irq_poll());
         }
         done->Run();
-        // todo: 添加状态
+
         return;
     }
 
-    void rpcFrameworkManagerImpl::GetMonitorInfo(const ::google::protobuf::Empty *request,
-                                                 ::monitor::proto::MonitorInfo *response,
+    void rpcFrameworkManagerImpl::GetMonitorInfo(::google::protobuf::RpcController *controller,
+                                                 const ::google::protobuf::Empty *request,
+                                                 monitor::proto::MonitorInfo *response,
                                                  ::google::protobuf::Closure *done)
     {
         *response = monitorInfos_;

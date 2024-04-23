@@ -23,18 +23,18 @@ namespace monitor
         RpcClient(network::EventLoop *loop, const network::InetAddress &serverAddr);
         RpcClient(network::EventLoop *loop);
         ~RpcClient();
-        void SetMonitorInfo(const monitor::proto::MonitorInfo &monito_info);
+        void SetMonitorInfo(const monitor::proto::MonitorInfo *monito_info);
         void GetMonitorInfo(monitor::proto::MonitorInfo *monito_info);
-        void connect() { client_.connect(); }
+        void connect() { clientPtr_->connect(); }
 
     private:
         void onConnection_(const network::TcpConnectionPtr &conn);
-        void closure_(::monitor::proto::MonitorInfo *resp);
+        void closure_();
 
     private:
         monitor::proto::RpcManager::Stub stub_;
         network::EventLoop *loop_;
-        network::TcpClient client_;
+        std::unique_ptr<network::TcpClient> clientPtr_;
         network::RpcChannelPtr channel_;
     };
 }

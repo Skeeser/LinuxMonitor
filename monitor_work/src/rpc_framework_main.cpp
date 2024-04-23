@@ -11,8 +11,7 @@
 #include "monitor/monitor_inter.h"
 #include "monitor/net_monitor.h"
 
-#include "monitor_info.grpc.pb.h"
-#include "monitor_info.pb.h"
+#include "rf_monitor_info.pb.h"
 
 void RpcRun()
 {
@@ -43,7 +42,7 @@ void RpcRun()
                 runner->UpdateOnce(&monitorInfo);
             }
 
-            rpcClient.SetMonitorInfo(monitorInfo);
+            rpcClient.SetMonitorInfo(&monitorInfo);
             // sleep 3秒
             std::this_thread::sleep_for(std::chrono::seconds(3));
         } });

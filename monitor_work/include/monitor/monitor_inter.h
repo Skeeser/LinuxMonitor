@@ -2,7 +2,15 @@
 
 #include <string>
 
+#ifdef IF_GRPC
+#include "monitor_info.pb.h"
 #include "monitor_info.grpc.pb.h"
+#else
+#include "rf_monitor_info.pb.h"
+#endif
+
+
+
 namespace monitor
 {
     // 抽象类接口
