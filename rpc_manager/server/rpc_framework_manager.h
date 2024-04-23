@@ -3,7 +3,6 @@
 // #include <grpcpp/support/status.h>
 #include <unordered_map>
 
-#include "monitor_info.grpc.pb.h"
 #include "monitor_info.pb.h"
 #include "log_manager.h"
 #include "EventLoop.h"

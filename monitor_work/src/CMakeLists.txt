@@ -1,6 +1,6 @@
 
 set(SOURCES
-   main.cpp
+   grpc_main.cpp
    monitor/cpu_softirq_monitor.cpp
    monitor/cpu_load_monitor.cpp
    monitor/cpu_stat_monitor.cpp

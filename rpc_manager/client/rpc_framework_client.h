@@ -3,9 +3,6 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-// #include <grpc/grpc.h>
-// #include <grpcpp/create_channel.h>
-// #include <grpcpp/grpcpp.h>
 
 #include "EventLoop.h"
 #include "InetAddress.h"
@@ -13,7 +10,6 @@
 #include "TcpConnection.h"
 #include "RpcChannel.h"
 
-#include "monitor_info.grpc.pb.h"
 #include "monitor_info.pb.h"
 #include "log_manager.h"
 
@@ -27,7 +23,11 @@ namespace monitor
         ~RpcClient();
         void SetMonitorInfo(const monitor::proto::MonitorInfo &monito_info);
         void GetMonitorInfo(monitor::proto::MonitorInfo *monito_info);
-        void Connect() { client_.connect(); }
+        void connect() { client_.connect(); }
+
+    private:
+        void onConnection_(const TcpConnectionPtr &conn);
+        void closure_(::monitor::proto::MonitorInfo *resp);
 
     private:
         std::unique_ptr<monitor::proto::GrpcManager::Stub> stubPtr_;

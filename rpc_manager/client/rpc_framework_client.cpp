@@ -55,7 +55,7 @@ namespace monitor
 
         client_(loop, serverAddr, "RpcClient");
 
-        client_.setConnectionCallback(std::bind(&RpcClient::onConnection, this, _1));
+        client_.setConnectionCallback(std::bind(&RpcClient::onConnection_, this, _1));
         client_.setMessageCallback(std::bind(&RpcChannel, get_pointer(channel_), _1, _2));
     }
 
@@ -63,41 +63,43 @@ namespace monitor
     {
     }
 
+    /*
+    ::google::protobuf::RpcController *controller,
+    const ::monitor::proto::MonitorInfo *request,
+    ::google::protobuf::Empty *response,
+    ::google::protobuf::Closure *done
+    */
     void RpcClient::SetMonitorInfo(const monitor::proto::MonitorInfo &monito_info)
     {
-        ::grpc::ClientContext context;
-        ::google::protobuf::Empty response;
-        ::grpc::Status status =
-            stubPtr_->SetMonitorInfo(&context, monito_info, &response);
 
-        if (status.ok())
-        {
-            LOG_INFO("Successfully set monitor info.")
-        }
-        else
-        {
-            // std::cout << status.error_details() << std::endl;
-            // std::cout << "falied to connect !!!" << std::endl;
-            LOG_ERROR("Detail: %s", status.error_details().c_str());
-            LOG_ERROR("Falied to connect !!!");
-        }
+        ::google::protobuf::Empty response;
+
+        stubPtr_->SetMonitorInfo(nullptr, monito_info, &response, nullptr);
+
+        LOG_INFO("Successfully set monitor info.")
     }
     void RpcClient::GetMonitorInfo(monitor::proto::MonitorInfo *monito_info)
     {
-        ::grpc::ClientContext context;
+
         ::google::protobuf::Empty request;
-        ::grpc::Status status =
-            stubPtr_->GetMonitorInfo(&context, request, monito_info);
-        if (status.ok())
+        stubPtr_->GetMonitorInfo(NULL, &request, monito_info, NewCallback(this, &RpcClient::closure_, response));
+
+        LOG_INFO("Successfully get monitor info.")
+    }
+
+    void RpcClient::onConnection_(const TcpConnectionPtr &conn)
+    {
+        if (conn->connected())
         {
-            LOG_INFO("Successfully get monitor info.")
+            channel_->setConnection(conn);
         }
         else
         {
-            // std::cout << status.error_details() << std::endl;
-            // std::cout << "falied to connect !!!" << std::endl;
-            LOG_ERROR("Detail: %s", status.error_details().c_str());
-            LOG_ERROR("Falied to connect !!!");
+            RpcClient::connect();
         }
+    }
+    void RpcClient::closure_(::monitor::proto::MonitorInfo *resp)
+    {
+        ;
     }
 }
