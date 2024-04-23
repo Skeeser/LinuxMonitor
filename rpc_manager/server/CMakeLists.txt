@@ -8,7 +8,7 @@
 # Sources
 #
 set(SOURCES
-    main.cpp
+    grpc_main.cpp
     grpc_manager.cpp
 )
 

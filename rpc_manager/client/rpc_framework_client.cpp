@@ -2,29 +2,61 @@
 
 namespace monitor
 {
-    RpcClient::RpcClient()
+    RpcClient::RpcClient(EventLoop *loop, const InetAddress &serverAddr)
+        : loop_(loop), client_(loop, serverAddr, "RpcClient"), channel_(new RpcChannel), stub(get_pointer(channel_))
+
     {
         // 初始化日志
         Log::Instance()->init(1, "./client_log", ".log", 1024);
         LOG_INFO("<-----------------CLIENT---------------->");
-        FILE *fp;
-        fp = fopen("ip_address.txt", "r");
-        char ipStr[50];
-        bool isOpen = false;
-        if (fp != nullptr && fgets(ipStr, 50, fp) != nullptr)
+
+        client_.setConnectionCallback(std::bind(&RpcClient::onConnection, this, _1));
+        client_.setMessageCallback(std::bind(&RpcChannel, get_pointer(channel_), _1, _2));
+    }
+
+    RpcClient::RpcClient(EventLoop *loop)
+        : loop_(loop), channel_(new RpcChannel), stub(get_pointer(channel_))
+
+    {
+
+        // 初始化日志
+        Log::Instance()->init(1, "./client_log", ".log", 1024);
+        LOG_INFO("<-----------------CLIENT---------------->");
+
+        std::ifstream ifs("ip_address.txt");
+        std::string line;
+        std::getline(ifs, line);
+
+        std::string ip;
+        uint16_t port;
+        if (ifs_.eof() || line.empty())
         {
-            isOpen = true;
-            fclose(fp);
-            int pos = strlen(ipStr);
-            ipStr[pos - 1] = '\0'; // 去除换行符
+            ip = "localhost";
+            port = 50051;
         }
         else
         {
-            strcpy(ipStr, "localhost:50051");
+            // 解析ip和port
+            int pos = line.find(':');
+            if (pos != std::string::npos)
+            {
+                ip = line.sub_str(0, pos);
+                port = std::stoi(line.sub_str(pos + 1, line.size() - pos - 1));
+            }
+            else
+            {
+                ip = "localhost";
+                port = 50051;
+            }
         }
+        ifs.close();
+        LOG_INFO("ip: %s, port: %d", ip.c_str(), port);
+        InetAddress serverAddr(ip, port);
 
-        auto channel = ::grpc::CreateChannel(ipStr, ::grpc::InsecureChannelCredentials());
-        stubPtr_ = monitor::proto::GrpcManager::NewStub(channel);
+        client_(loop, serverAddr, "RpcClient");
+
+        client_.setConnectionCallback(std::bind(&RpcClient::onConnection, this, _1));
+        client_.setMessageCallback(std::bind(&RpcChannel, get_pointer(channel_), _1, _2));
     }
 
     RpcClient::~RpcClient()
@@ -37,6 +69,7 @@ namespace monitor
         ::google::protobuf::Empty response;
         ::grpc::Status status =
             stubPtr_->SetMonitorInfo(&context, monito_info, &response);
+
         if (status.ok())
         {
             LOG_INFO("Successfully set monitor info.")
