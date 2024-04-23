@@ -2,7 +2,7 @@
 
 namespace monitor
 {
-    RpcClient::RpcClient(EventLoop *loop, const InetAddress &serverAddr)
+    RpcClient::RpcClient(network::EventLoop *loop, const network::InetAddress &serverAddr)
         : loop_(loop), client_(loop, serverAddr, "RpcClient"), channel_(new RpcChannel), stub(get_pointer(channel_))
 
     {
@@ -51,7 +51,7 @@ namespace monitor
         }
         ifs.close();
         LOG_INFO("ip: %s, port: %d", ip.c_str(), port);
-        InetAddress serverAddr(ip, port);
+        network::InetAddress serverAddr(ip, port);
 
         client_(loop, serverAddr, "RpcClient");
 

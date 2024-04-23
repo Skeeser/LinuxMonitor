@@ -11,15 +11,17 @@ namespace monitor
 
     rpcFrameworkManagerImpl::~rpcFrameworkManagerImpl() {}
 
-    ::grpc::Status rpcFrameworkManagerImpl::SetMonitorInfo(::google::protobuf::RpcController *controller,
-                                                           const ::monitor::proto::MonitorInfo *request,
-                                                           ::google::protobuf::Empty *response,
-                                                           ::google::protobuf::Closure *done)
+    void rpcFrameworkManagerImpl::SetMonitorInfo(::google::protobuf::RpcController *controller,
+                                                 const ::monitor::proto::MonitorInfo *request,
+                                                 ::google::protobuf::Empty *response,
+                                                 ::google::protobuf::Closure *done)
     {
         monitorInfos_.Clear();
         // 赋值
         monitorInfos_ = *request;
         // 通过日志写入
+        LOG_INFO("REQ:\n%s", request->DebugString().c_str());
+        // 示例打印
         LOG_INFO("Soft_irq_size: %d", request->soft_irq_size());
         for (int i = 0; i < request->soft_irq_size(); i++)
         {
@@ -32,17 +34,19 @@ namespace monitor
                      request->soft_irq(i).block(),
                      request->soft_irq(i).irq_poll());
         }
-
-        return ::grpc::Status::OK;
+        done->Run();
+        // todo: 添加状态
+        return;
     }
 
-    ::grpc::Status rpcFrameworkManagerImpl::GetMonitorInfo(::google::protobuf::RpcController *controller,
-                                                           const ::google::protobuf::Empty *request,
-                                                           ::monitor::proto::MonitorInfo *response,
-                                                           ::google::protobuf::Closure *done)
+    void rpcFrameworkManagerImpl::GetMonitorInfo(::google::protobuf::RpcController *controller,
+                                                 const ::google::protobuf::Empty *request,
+                                                 ::monitor::proto::MonitorInfo *response,
+                                                 ::google::protobuf::Closure *done)
     {
         *response = monitorInfos_;
-        return ::grpc::Status::OK;
+        done->Run();
+        return;
     }
 
 }

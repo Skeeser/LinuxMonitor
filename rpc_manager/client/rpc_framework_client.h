@@ -22,8 +22,8 @@ namespace monitor
     class RpcClient
     {
     public:
-        RpcClient(EventLoop *loop, const InetAddress &serverAddr);
-        RpcClient(EventLoop *loop);
+        RpcClient(network::EventLoop *loop, const network::InetAddress &serverAddr);
+        RpcClient(network::EventLoop *loop);
         ~RpcClient();
         void SetMonitorInfo(const monitor::proto::MonitorInfo &monito_info);
         void GetMonitorInfo(monitor::proto::MonitorInfo *monito_info);
@@ -31,8 +31,8 @@ namespace monitor
 
     private:
         std::unique_ptr<monitor::proto::GrpcManager::Stub> stubPtr_;
-        EventLoop *loop_;
-        TcpClient client_;
+        network::EventLoop *loop_;
+        network::TcpClient client_;
         RpcChannelPtr channel_;
     };
 }
