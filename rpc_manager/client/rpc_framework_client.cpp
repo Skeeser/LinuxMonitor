@@ -5,7 +5,7 @@ namespace monitor
     RpcClient::RpcClient(network::EventLoop *loop, const network::InetAddress &serverAddr)
         : loop_(loop),
           clientPtr_(new network::TcpClient(loop, serverAddr, "RpcClient")),
-          channel_(new network::RpcChannel),
+          channel_(new network::RpcChannel()),
           stub_(network::get_pointer(channel_))
 
     {
@@ -26,6 +26,7 @@ namespace monitor
 
         // 初始化日志
         Log::Instance()->init(1, "./client_log", ".log", 1024);
+
         LOG_INFO("<-----------------CLIENT---------------->");
 
         std::ifstream ifs("ip_address.txt");
@@ -76,10 +77,11 @@ namespace monitor
     */
     void RpcClient::SetMonitorInfo(const monitor::proto::MonitorInfo *monito_info)
     {
-
+        LOG_INFO("start set monitor info.");
+        LOG_INFO("monitor_info:\n%s", monito_info->DebugString().c_str());
         ::google::protobuf::Empty response;
-
-        stub_.SetMonitorInfo(NULL, monito_info, &response, ::google::protobuf::NewCallback(this, &RpcClient::closure_));
+        // 添加conn判断
+        stub_.SetMonitorInfo(NULL, monito_info, &response, nullptr);
 
         LOG_INFO("Successfully set monitor info.");
     }
@@ -95,6 +97,9 @@ namespace monitor
 
     void RpcClient::onConnection_(const network::TcpConnectionPtr &conn)
     {
+        LOG_INFO("on connection");
+
+        // std::cout << "on connetion" << std::endl;
         if (conn->connected())
         {
             channel_->setConnection(conn);
@@ -105,6 +110,10 @@ namespace monitor
         }
     }
     void RpcClient::closure_()
+    {
+        ;
+    }
+    void RpcClient::setClosure_(::google::protobuf::Empty *resp)
     {
         ;
     }

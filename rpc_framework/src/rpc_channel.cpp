@@ -5,7 +5,7 @@
 #include <google/protobuf/descriptor.h>
 
 #include "rpc.pb.h"
-// #include "log_manager.h"
+#include "log_manager.h"
 
 namespace network
 {

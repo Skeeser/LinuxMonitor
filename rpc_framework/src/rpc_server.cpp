@@ -14,7 +14,7 @@ namespace network
         : server_(loop, listenAddr, "RpcServer")
     {
         // 初始化日志系统
-        Log::Instance()->init(1, "./RpcServerLog", ".log", 1024);
+        Log::Instance()->init(1, "./server_log", ".log", 1024);
 
         // 调用tcp server函数, 将本类的onConnection设置为connect的回调函数
         server_.setConnectionCallback(std::bind(&RpcServer::onConnection_, this, _1));

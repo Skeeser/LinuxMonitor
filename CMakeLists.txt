@@ -5,7 +5,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 set(CMAKE_CXX_STANDARD 17)
 
 
-option(IF_GRPC "IF USE gRpc?" OFF)
+set(IF_GRPC  ON CACHE INTERNAL "IF USE gRpc?"  )
 
 add_subdirectory(log_manager)
 add_subdirectory(proto)

@@ -29,6 +29,7 @@ namespace monitor
 
     private:
         void onConnection_(const network::TcpConnectionPtr &conn);
+        void setClosure_(::google::protobuf::Empty *resp);
         void closure_();
 
     private:

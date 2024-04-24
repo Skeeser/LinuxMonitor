@@ -25,7 +25,8 @@ void RpcRun()
 
     // 声明一个client
     network::EventLoop loop;
-    monitor::RpcClient rpcClient(&loop);
+    network::InetAddress serverAddr("localhost", 50051);
+    monitor::RpcClient rpcClient(&loop, serverAddr);
     rpcClient.connect();
 
     // 获取环境变量
@@ -47,7 +48,10 @@ void RpcRun()
             std::this_thread::sleep_for(std::chrono::seconds(3));
         } });
 
-    thread->join();
+    thread->detach();
+    loop.loop();
+
+    google::protobuf::ShutdownProtobufLibrary();
 }
 
 int main()

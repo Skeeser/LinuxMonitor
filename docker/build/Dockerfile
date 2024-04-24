@@ -20,6 +20,7 @@ RUN apt-get update  && apt-get upgrade -y  && \
     apt-utils \
     curl \
     cmake \
+    gdb \
     git \
     openssh-server \
     build-essential \
