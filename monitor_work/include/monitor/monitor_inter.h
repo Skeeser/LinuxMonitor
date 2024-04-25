@@ -2,7 +2,7 @@
 
 #include <string>
 
-#define IF_GRPC
+// #define IF_GRPC
 
 #ifdef IF_GRPC
 #include "monitor_info.pb.h"

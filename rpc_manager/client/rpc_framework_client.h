@@ -21,7 +21,7 @@ namespace monitor
     {
     public:
         RpcClient(network::EventLoop *loop, const network::InetAddress &serverAddr);
-        RpcClient(network::EventLoop *loop);
+        // RpcClient(network::EventLoop *loop);
         ~RpcClient();
         void SetMonitorInfo(const monitor::proto::MonitorInfo *monito_info);
         void GetMonitorInfo(monitor::proto::MonitorInfo *monito_info);
@@ -29,13 +29,12 @@ namespace monitor
 
     private:
         void onConnection_(const network::TcpConnectionPtr &conn);
-        void setClosure_(::google::protobuf::Empty *resp);
         void closure_();
 
     private:
-        monitor::proto::RpcManager::Stub stub_;
         network::EventLoop *loop_;
         std::unique_ptr<network::TcpClient> clientPtr_;
-        network::RpcChannelPtr channel_;
+        network::RpcChannel *channel_;
+        std::unique_ptr<monitor::proto::RpcManager::Stub> stubPtr_;
     };
 }

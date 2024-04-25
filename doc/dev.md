@@ -77,10 +77,14 @@ stress --io 4 --timeout 60
 ⑤当 irq/softirq 占用率过高的时候，很可能某些外设出现问题，导致产生大量的irq请求，这时候通过检查 /proc/interrupts 文件来深究问题所在；
 
 
+## debug
+cmake .. -DCMAKE_BUILD_TYPE=Debug && make   
+
 ## todo
-异常处理  
-ai调参调优  
-假如有100台, 怎么集中管理  
-任务三怎么实现  
-负载均衡  
-自己写一个rpc  
+- [ ] 异常处理   
+- [ ] ai调参调优  
+- [ ] 假如有100台, 怎么集中管理  
+- [ ] 任务三怎么实现  
+- [ ] 负载均衡   
+- [x] 自己写一个rpc    
+- [ ] 加数据库  
