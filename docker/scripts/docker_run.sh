@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# 构建容器
+
 MONITOR_HOME_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
 
 display=""
