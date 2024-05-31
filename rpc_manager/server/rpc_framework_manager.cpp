@@ -20,7 +20,7 @@ namespace monitor
         // 赋值
         monitorInfos_ = *request;
         // 通过日志写入
-        LOG_INFO("REQ:\n%s", request->DebugString().c_str());
+        LOG_INFO("REQ:\n%s\n", request->DebugString().c_str());
         // 示例打印
         // LOG_INFO("Soft_irq_size: %d", request->soft_irq_size());
         // for (int i = 0; i < request->soft_irq_size(); i++)
