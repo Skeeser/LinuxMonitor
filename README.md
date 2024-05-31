@@ -1,6 +1,6 @@
 <div align="center">
 
-<img alt="LOGO" src="assets/log.png" height="200" />
+<!-- <img alt="LOGO" src="assets/log.png" height="200" /> -->
 
 # LinuxMonitor
 
