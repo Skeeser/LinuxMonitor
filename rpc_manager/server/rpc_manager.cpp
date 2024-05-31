@@ -19,19 +19,6 @@ namespace monitor
         // 赋值
         monitorInfos_ = *request;
         // 通过日志写入
-        // LOG_INFO("Soft_irq_size: %d", request->soft_irq_size());
-        // for (int i = 0; i < request->soft_irq_size(); i++)
-        // {
-        //     LOG_INFO("cpu:%s hi:%d timer:%d net_tx:%d net_rx:%d block:%d irq_poll:%d",
-        //              request->soft_irq(i).cpu().c_str(),
-        //              request->soft_irq(i).hi(),
-        //              request->soft_irq(i).timer(),
-        //              request->soft_irq(i).net_tx(),
-        //              request->soft_irq(i).net_rx(),
-        //              request->soft_irq(i).block(),
-        //              request->soft_irq(i).irq_poll());
-        // }
-
         LOG_INFO("monitor_info:\n%s", request->DebugString().c_str());
 
         return ::grpc::Status::OK;
