@@ -55,6 +55,9 @@ RUN /tmp/install/grpc/install_grpc.sh
 COPY install/cmake /tmp/install/cmake
 RUN /tmp/install/cmake/install_cmake.sh
 
+COPY install/gtest /tmp/install/gtest
+RUN /tmp/install/gtest/install_gtest.sh
+
 # RUN apt-get install -y python3-pip
 # RUN pip3 install cuteci -i https://mirrors.aliyun.com/pypi/simple
 
