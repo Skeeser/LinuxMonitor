@@ -7,6 +7,7 @@ namespace monitor
         // 初始化日志
         Log::Instance()->init(1, "./client_log", ".log", 1024);
         LOG_INFO("<-----------------CLIENT---------------->");
+
         FILE *fp;
         fp = fopen("ip_address.txt", "r");
         char ipStr[50];
