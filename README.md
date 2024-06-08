@@ -69,20 +69,36 @@ cd docker/scripts
 ./docker_build.sh
 ```
 
+<br>
+
 #### 创建容器
 ```shell
 ./docker_run.sh
 ```
+
+<br>
 
 #### 进入容器
 ```shell
 ./docker_into.sh
 ```
 
+<br>
+
+
 #### 删除容器
 ```shell
-./docker_stop_and_run.sh
+./docker_rm_container.sh
 ```
+
+<br>
+
+#### 删除镜像
+```shell
+docker_rm_image.sh 
+```
+如果有新的依赖导致dockerfile更新, 只要删除镜像再创建即可  
+
 
 <br>
 
