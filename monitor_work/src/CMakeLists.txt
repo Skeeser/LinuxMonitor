@@ -6,6 +6,7 @@ set(SOURCES
    monitor/cpu_stat_monitor.cpp
    monitor/mem_monitor.cpp
    monitor/net_monitor.cpp
+   monitor/metric_monitor.cpp
    utils/read_file.cpp
 )
 

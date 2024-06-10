@@ -1,0 +1,32 @@
+syntax = "proto3";
+package monitor.proto;
+
+
+// Metric信息
+message MetricInfo {
+    float http_server_requests = 1;
+    float executor_pool_max = 2;
+    float tomcat_sessions_created = 3;
+    float disk_total = 4;
+    float disk_free = 5;
+    float tomcat_sessions_expired = 6;
+    float tasks_scheduled_execution = 7;
+    float executor_queue_remaining = 8;
+    float executor_queued = 9;
+    float jvm_memory_used = 10;
+    float http_server_requests_active = 11;
+    float jvm_threads_daemon = 12;
+    float tomcat_sessions_active_current = 13;
+    float tomcat_sessions_active_max = 14;
+    float system_cpu_usage = 15;
+    float jvm_memory_usage_after_gc = 16;
+    float jvm_threads_peak = 17;
+    float process_cpu_usage = 18;
+    float jvm_threads_live = 19;
+    float executor_pool_size = 20;
+    float jvm_gc_overhead = 21;
+    float jvm_threads_started = 22;
+    float executor_completed = 23;
+    float executor_active = 24;
+    float tasks_scheduled_execution_active = 25;
+}

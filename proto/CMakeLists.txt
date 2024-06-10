@@ -13,6 +13,7 @@ set(PROTO_FILES
     cpu_stat.proto
     mem_info.proto
     net_info.proto
+    metric_info.proto
 )
 
 #

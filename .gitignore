@@ -34,3 +34,5 @@
 
 # cmake
 /build/
+
+/metric/metrics.txt

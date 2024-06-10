@@ -7,6 +7,7 @@ import "mem_info.proto";
 import "cpu_stat.proto";
 import "cpu_softirq.proto";
 import "cpu_load.proto";
+import "metric_info.proto";
 
 // 总的protobuf
 
@@ -18,6 +19,7 @@ message MonitorInfo{
   repeated CpuStat cpu_stat = 6;
   MemInfo mem_info = 7;
   repeated NetInfo net_info = 8;
+  MetricInfo metric_info = 9;
 }
 
 
