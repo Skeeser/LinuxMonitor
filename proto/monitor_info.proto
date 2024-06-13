@@ -8,18 +8,22 @@ import "cpu_stat.proto";
 import "cpu_softirq.proto";
 import "cpu_load.proto";
 import "metric_info.proto";
+import "netcard_info.proto";
 
 // 总的protobuf
 
 // monitor的信息
 message MonitorInfo{
   string name = 1;  // monitor名称 
+  OsInfo os_info = 2; // 操作系统信息
+  repeated CpuInfo cpu_info = 3; // cpu信息
   repeated SoftIrq soft_irq = 4;
   CpuLoad cpu_load = 5;
   repeated CpuStat cpu_stat = 6;
   MemInfo mem_info = 7;
   repeated NetInfo net_info = 8;
   MetricInfo metric_info = 9;
+  repeated NetcardInfo = 10; // 网卡信息
 }
 
 

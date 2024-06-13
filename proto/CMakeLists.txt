@@ -14,6 +14,9 @@ set(PROTO_FILES
     mem_info.proto
     net_info.proto
     metric_info.proto
+    os_info.proto
+    cpu_info.proto
+    netcard_info.proto
 )
 
 #

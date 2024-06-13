@@ -1,0 +1,10 @@
+syntax = "proto3";
+package monitor.proto;
+
+message CpuInfo {
+    string name = 1; // cpu名称
+    string model_name = 2; // model名称
+    float mhz = 3; // mhz大小
+    float cache_size_kb = 4; // cache大小
+    float cores_num = 5; // core数量
+}

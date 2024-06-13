@@ -1,0 +1,8 @@
+syntax = "proto3";
+package monitor.proto;
+
+
+
+message OsInfo {
+    string os_name = 1; // 操作系统名称
+}
