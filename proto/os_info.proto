@@ -4,5 +4,5 @@ package monitor.proto;
 
 
 message OsInfo {
-    string os_name = 1; // 操作系统名称
+    string name = 1; // 操作系统名称
 }

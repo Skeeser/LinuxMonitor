@@ -5,10 +5,13 @@ import "google/protobuf/empty.proto";
 import "net_info.proto";
 import "mem_info.proto";
 import "cpu_stat.proto";
+import "cpu_info.proto";
 import "cpu_softirq.proto";
 import "cpu_load.proto";
 import "metric_info.proto";
 import "netcard_info.proto";
+import "os_info.proto";
+
 
 // 总的protobuf
 
@@ -23,7 +26,7 @@ message MonitorInfo{
   MemInfo mem_info = 7;
   repeated NetInfo net_info = 8;
   MetricInfo metric_info = 9;
-  repeated NetcardInfo = 10; // 网卡信息
+  repeated NetcardInfo netcard_info = 10; // 网卡信息
 }
 
 

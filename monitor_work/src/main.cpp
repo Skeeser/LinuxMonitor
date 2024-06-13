@@ -10,7 +10,7 @@
 #include "monitor/monitor_inter.h"
 #include "monitor/net_monitor.h"
 #include "monitor/metric_monitor.h"
-
+#include "monitor/os_monitor.h"
 #include "monitor_info.grpc.pb.h"
 #include "monitor_info.pb.h"
 
@@ -24,6 +24,7 @@ void RpcRun()
     runners.emplace_back(new monitor::MemMonitor());
     runners.emplace_back(new monitor::NetMonitor());
     runners.emplace_back(new monitor::MetricMonitor());
+    runners.emplace_back(new monitor::OsMonitor());
 
     // 声明一个client
     monitor::RpcClient rpcClient;
