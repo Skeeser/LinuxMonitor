@@ -1,4 +1,5 @@
 #include "utils/read_file.h"
+#include "utils/utils.h"
 
 namespace monitor
 {
@@ -21,7 +22,7 @@ namespace monitor
         return true;
     }
 
-    bool ReadFile::ReadEtcLine(std::vector<std::string> *args)
+    bool ReadFile::ReadLineBySplitchar(std::vector<std::string> *args, char splitchar)
     {
         std::string line;
         std::getline(ifs_, line);
@@ -32,12 +33,14 @@ namespace monitor
 
         std::istringstream line_ss(line);
         std::string word;
-        while (std::getline(line_ss, word, '='))
+        while (std::getline(line_ss, word, splitchar))
         {
-            args->push_back(word);
+            // 去除多余空格
+            args->push_back(Utils::trim(word));
         }
         return true;
     }
+
 
     std::vector<std::string> ReadFile::GetStatsLines(const std::string &stat_file,
                                                      const int line_count)

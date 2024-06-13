@@ -8,14 +8,18 @@ namespace monitor
     {
         ReadFile net_file(std::string("/etc/os-release"));
         std::vector<std::string> os_datas;
-        while (net_file.ReadEtcLine(&os_datas))
+        while (net_file.ReadLineBySplitchar(&os_datas, '='))
         {
-            std::string key = os_datas[0];
-            if (key == "PRETTY_NAME")
+            if (os_datas[0].find("PRETTY_NAME") != std::string::npos)
             {
                 struct OsInfo os_info;
-
-                os_info.name = os_datas[1];
+                std::string name = os_datas[1];
+                // 去除首尾双引号
+                if (name.size() >= 2)
+                {
+                    name = name.substr(1, name.size() - 2);
+                }
+                os_info.name = name;
 
                 auto os_msg = monitor_info->mutable_os_info();
                 os_msg->set_name(os_info.name);

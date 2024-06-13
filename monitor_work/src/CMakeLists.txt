@@ -8,6 +8,7 @@ set(SOURCES
    monitor/net_monitor.cpp
    monitor/metric_monitor.cpp
    monitor/os_monitor.cpp
+   monitor/cpu_info_monitor.cpp
    utils/read_file.cpp
 )
 

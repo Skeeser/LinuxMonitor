@@ -11,6 +11,8 @@
 #include "monitor/net_monitor.h"
 #include "monitor/metric_monitor.h"
 #include "monitor/os_monitor.h"
+#include "monitor/cpu_info_monitor.h"
+
 #include "monitor_info.grpc.pb.h"
 #include "monitor_info.pb.h"
 
@@ -18,6 +20,7 @@ void RpcRun()
 {
     std::vector<std::shared_ptr<monitor::MonitorInter>> runners;
 
+    runners.emplace_back(new monitor::CpuInfoMonitor());
     runners.emplace_back(new monitor::CpuSoftIrqMonitor());
     runners.emplace_back(new monitor::CpuLoadMonitor());
     runners.emplace_back(new monitor::CpuStatMonitor());

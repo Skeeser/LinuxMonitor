@@ -19,7 +19,7 @@ namespace monitor
         // 赋值
         monitorInfos_ = *request;
         // 通过日志写入
-        LOG_INFO("monitor_info:\n%s", request->os_info().DebugString().c_str());
+        LOG_INFO("debug_info:\n%s", request->cpu_info()[1].DebugString().c_str());
 
         return ::grpc::Status::OK;
     }
