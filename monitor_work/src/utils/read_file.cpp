@@ -20,6 +20,25 @@ namespace monitor
         }
         return true;
     }
+
+    bool ReadFile::ReadEtcLine(std::vector<std::string> *args)
+    {
+        std::string line;
+        std::getline(ifs_, line);
+        if (ifs_.eof() || line.empty())
+        {
+            return false;
+        }
+
+        std::istringstream line_ss(line);
+        std::string word;
+        while (std::getline(line_ss, word, '='))
+        {
+            args->push_back(word);
+        }
+        return true;
+    }
+
     std::vector<std::string> ReadFile::GetStatsLines(const std::string &stat_file,
                                                      const int line_count)
     {

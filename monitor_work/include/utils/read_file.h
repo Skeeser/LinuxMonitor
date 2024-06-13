@@ -21,7 +21,8 @@ namespace monitor
         static std::vector<std::string> GetStatsLines(const std::string &stat_file,
                                                       const int line_count);
 
-    private:
-        std::ifstream ifs_;
+        bool ReadEtcLine(std::vector<std::string> *args);
+
+            private : std::ifstream ifs_;
     };
 }
