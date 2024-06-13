@@ -3,6 +3,6 @@ package monitor.proto;
 
 message NetcardInfo {
     string name = 1; // 网卡名称
-    string mac_addredd = 2; // mac地址
+    string mac_address = 2; // mac地址
     float mtu = 3; // mtu大小
 }
