@@ -19,7 +19,7 @@ namespace monitor
         // 赋值
         monitorInfos_ = *request;
         // 通过日志写入
-        LOG_INFO("debug_info:\n%s", request->netcard_info()[1].DebugString().c_str());
+        // LOG_INFO("\ndebug_info:\n%s", request->DebugString().c_str());
 
         return ::grpc::Status::OK;
     }

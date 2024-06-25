@@ -104,6 +104,16 @@ LOG_INFO("monitor_info:\n%s", request->DebugString().c_str());
 
 <br>
 
+
+## 代理命令
+```shell
+nohup ./grpcwebproxy-v0.15.0-linux-x86_64 --backend_addr=localhost:50051 --run_tls_server=false --allow_all_origins &
+```
+```
+ps ajx
+```
+
+
 # todo
 异常处理
 ai调参调优

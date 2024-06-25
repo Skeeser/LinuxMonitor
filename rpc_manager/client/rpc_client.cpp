@@ -40,7 +40,7 @@ namespace monitor
             stubPtr_->SetMonitorInfo(&context, monito_info, &response);
         if (status.ok())
         {
-            LOG_INFO("Successfully set monitor info.")
+            // LOG_INFO("Successfully set monitor info.")
         }
         else
         {
